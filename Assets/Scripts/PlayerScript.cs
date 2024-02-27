@@ -20,9 +20,12 @@ public class PlayerScript : MonoBehaviour
     private string direction;
     
     //collision function 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isAnimating = false;
+        if(collision.gameObject.tag == "Cheez")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     //function for moving in certain directions
@@ -32,7 +35,6 @@ public class PlayerScript : MonoBehaviour
         if(direction == "up")
         {
             transform.position += new Vector3(0,speed,0) * Time.deltaTime;
-            transform.rotation = new Quaternion(0,0,180,0);
         }
         else if(direction == "left")
         {
@@ -42,7 +44,6 @@ public class PlayerScript : MonoBehaviour
         else if(direction == "down")
         {
             transform.position += new Vector3(0,-speed,0) * Time.deltaTime;
-            transform.rotation = new Quaternion(0,0,0,0);
         }
         else if(direction == "right")
         {
