@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -18,15 +20,41 @@ public class PlayerScript : MonoBehaviour
 
     //direction variable
     private string direction;
+
+    //score variable
+    private int score;
     
+    //text variable
+    public TMP_Text txt;
+
+    public TMP_Text highScore;
+
+    //leaderboard variable
+    public LeaderboardManager leaderboard;
+
     //collision function 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Cheez")
         {
+            score+=10;
+            //test update score for later leaderboard injection
+            
             Destroy(collision.gameObject);
         }
+
+        if(collision.gameObject.tag =="EvilMouse")
+        {
+            Debug.Log("Ouch");
+            Destroy(gameObject);
+            leaderboard.AddScoreAndDisplayLeaderboard(score);
+        }
     }
+
+    //to be moved somewhere else
+    //to add a new score to the high score
+
+    //leaderboard.AddScoreAndDisplayLeaderboard(some integer here);
 
     //function for moving in certain directions
     private void MoveDirection(string direction)
@@ -55,12 +83,24 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
         anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //restart game
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            leaderboard.RestartGame();
+        }
+
+        //display the score
+        txt.text = "Score: \n" + score;
+
+        highScore.text = "High Score: " + leaderboard.HighScore();
+
         //handle movement
         if(Input.GetKeyDown(KeyCode.W))
         {
