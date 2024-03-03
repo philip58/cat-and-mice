@@ -7,7 +7,7 @@ using TMPro;
 public class PlayerScript : MonoBehaviour
 {
     //public speed variable
-    public int speed;
+    public float speed;
 
     //public animation variable
     public Animator anim;
@@ -32,6 +32,9 @@ public class PlayerScript : MonoBehaviour
     //leaderboard variable
     public LeaderboardManager leaderboard;
 
+    //cheez game object array
+    GameObject[] cheezArray;
+
     //collision function 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,13 +43,13 @@ public class PlayerScript : MonoBehaviour
             score+=10;
             //test update score for later leaderboard injection
             
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
 
         if(collision.gameObject.tag =="EvilMouse")
         {
             Debug.Log("Ouch");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             leaderboard.AddScoreAndDisplayLeaderboard(score);
         }
     }
@@ -83,6 +86,12 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cheezArray = GameObject.FindGameObjectsWithTag("cheez");
+        for (int i = 0; i < cheezArray.Length; i++)
+        {
+            cheezArray[i].SetActive(true);
+        }
+        gameObject.SetActive(true);
         score = 0;
         anim = GetComponent<Animator>();
     }
