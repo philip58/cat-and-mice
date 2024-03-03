@@ -2501,6 +2501,8 @@ GameObject:
   m_Component:
   - component: {fileID: 154029900}
   - component: {fileID: 154029901}
+  - component: {fileID: 154029904}
+  - component: {fileID: 154029903}
   m_Layer: 0
   m_Name: Circle
   m_TagString: SuperCheez
@@ -2575,6 +2577,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &154029903
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154029899}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &154029904
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154029899}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000038146973, y: 0.0000019073486}
+  serializedVersion: 2
+  m_Radius: 1.28
 --- !u!1 &172310659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,7 +3837,7 @@ GameObject:
   - component: {fileID: 233294559}
   m_Layer: 0
   m_Name: Enemy (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3871,7 +3935,7 @@ Transform:
   m_GameObject: {fileID: 233294558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.97, y: 4.27, z: -2.9753156}
+  m_LocalPosition: {x: 0.18, y: 0.7, z: -2.9753156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4040,7 +4104,7 @@ GameObject:
   - component: {fileID: 247274469}
   m_Layer: 0
   m_Name: Enemy (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4138,7 +4202,7 @@ Transform:
   m_GameObject: {fileID: 247274468}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.18, y: -2.29, z: -2.9753156}
+  m_LocalPosition: {x: -0.15, y: 1.28, z: -2.9753156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7342,6 +7406,8 @@ MonoBehaviour:
   txt: {fileID: 726107784}
   highScore: {fileID: 408433211}
   leaderboard: {fileID: 750054561}
+  spawnPoint: {fileID: 796147383}
+  playerAteSuperCheez: 0
 --- !u!50 &409133635
 Rigidbody2D:
   serializedVersion: 4
@@ -10674,7 +10740,7 @@ GameObject:
   - component: {fileID: 580729991}
   m_Layer: 0
   m_Name: Enemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10772,7 +10838,7 @@ Transform:
   m_GameObject: {fileID: 580729990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.23, y: 0.75, z: -2.9753156}
+  m_LocalPosition: {x: -0.14, y: 2.15, z: -2.9753156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14790,6 +14856,37 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.0000014305115}
   serializedVersion: 2
   m_Radius: 2
+--- !u!1 &796147383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796147384}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &796147384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796147383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 2.18, z: -2.975316}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798264101
 GameObject:
   m_ObjectHideFlags: 0
@@ -15861,6 +15958,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c9433deebe90b4ba0fce36c61e6de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 409133634}
+  anim: {fileID: 836059501}
 --- !u!1 &842730222
 GameObject:
   m_ObjectHideFlags: 0
@@ -20551,6 +20650,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1083297120}
   - component: {fileID: 1083297121}
+  - component: {fileID: 1083297124}
+  - component: {fileID: 1083297123}
   m_Layer: 0
   m_Name: Circle (1)
   m_TagString: SuperCheez
@@ -20625,6 +20726,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1083297123
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083297119}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &1083297124
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083297119}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000038146973, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.28
 --- !u!1 &1085596617
 GameObject:
   m_ObjectHideFlags: 0
@@ -22563,7 +22726,7 @@ GameObject:
   - component: {fileID: 1199285071}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22647,7 +22810,7 @@ Transform:
   m_GameObject: {fileID: 1199285067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26, y: 0.75, z: -2.9753156}
+  m_LocalPosition: {x: -0.36, y: 0.7, z: -2.9753156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26207,6 +26370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c9433deebe90b4ba0fce36c61e6de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 409133634}
+  anim: {fileID: 1349488992}
 --- !u!50 &1349488990
 Rigidbody2D:
   serializedVersion: 4
@@ -26944,6 +27109,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1376545834}
   - component: {fileID: 1376545833}
+  - component: {fileID: 1376545837}
+  - component: {fileID: 1376545836}
   m_Layer: 0
   m_Name: Circle (1)
   m_TagString: SuperCheez
@@ -27018,6 +27185,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1975168404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1376545836
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376545832}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &1376545837
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376545832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.28
 --- !u!1 &1377373901
 GameObject:
   m_ObjectHideFlags: 0
@@ -53753,6 +53982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c9433deebe90b4ba0fce36c61e6de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 409133634}
+  anim: {fileID: 2004360657}
 --- !u!50 &2004360655
 Rigidbody2D:
   serializedVersion: 4
@@ -53936,6 +54167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c9433deebe90b4ba0fce36c61e6de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 409133634}
+  anim: {fileID: 2015538411}
 --- !u!50 &2015538409
 Rigidbody2D:
   serializedVersion: 4
@@ -54673,6 +54906,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2031491148}
   - component: {fileID: 2031491147}
+  - component: {fileID: 2031491151}
+  - component: {fileID: 2031491150}
   m_Layer: 0
   m_Name: Circle
   m_TagString: SuperCheez
@@ -54747,6 +54982,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1975168404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2031491150
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031491146}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &2031491151
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031491146}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.28
 --- !u!1 &2050380015
 GameObject:
   m_ObjectHideFlags: 0
@@ -56509,3 +56806,4 @@ SceneRoots:
   - {fileID: 233294562}
   - {fileID: 247274472}
   - {fileID: 580729994}
+  - {fileID: 796147384}

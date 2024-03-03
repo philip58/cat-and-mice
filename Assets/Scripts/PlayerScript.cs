@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -33,7 +34,41 @@ public class PlayerScript : MonoBehaviour
     public LeaderboardManager leaderboard;
 
     //cheez game object array
-    GameObject[] cheezArray;
+    private GameObject[] cheezArray;
+
+    //enemy game object array
+    private GameObject[] enemyArray;
+
+    //enemy spawn point
+    public GameObject spawnPoint;
+
+    //game start boolean
+    private bool gameStarted;
+
+    //boolean if player ate super cheez
+    public bool playerAteSuperCheez = false;
+
+    public bool GetCheezBool()
+    {
+        return playerAteSuperCheez;
+    }
+
+    //respawn enemy after death at its spawn point
+    private IEnumerator EnemyDied(GameObject obj)
+    {
+        obj.SetActive(false);
+        obj.transform.position = spawnPoint.transform.position;
+        yield return new WaitForSeconds(4);
+        obj.SetActive(true);
+    }
+
+    //turn off super mode for player
+    private IEnumerator SuperMode()
+    {
+        playerAteSuperCheez = true;
+        yield return new WaitForSeconds(8);
+        playerAteSuperCheez = false;
+    }
 
     //collision function 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,18 +81,33 @@ public class PlayerScript : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
 
-        if(collision.gameObject.tag =="EvilMouse")
+        if(collision.gameObject.tag =="EvilMouse" && !playerAteSuperCheez)
         {
-            Debug.Log("Ouch");
             gameObject.SetActive(false);
             leaderboard.AddScoreAndDisplayLeaderboard(score);
         }
+        else if(collision.gameObject.tag =="EvilMouse" && playerAteSuperCheez)
+        {
+            StartCoroutine(EnemyDied(collision.gameObject.transform.parent.gameObject));
+        }
+
+        if(collision.gameObject.tag =="SuperCheez")
+        {
+            collision.gameObject.SetActive(false);
+            StartCoroutine(SuperMode());
+        }
     }
 
-    //to be moved somewhere else
-    //to add a new score to the high score
+    //enemy spawning coroutine
+    private IEnumerator SpawnEnemies()
+    {
+        for (int i = 0; i < enemyArray.Length; i++)
+        {
+            yield return new WaitForSeconds(5);
 
-    //leaderboard.AddScoreAndDisplayLeaderboard(some integer here);
+            enemyArray[i].SetActive(true);
+        }
+    }
 
     //function for moving in certain directions
     private void MoveDirection(string direction)
@@ -86,14 +136,24 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cheezArray = GameObject.FindGameObjectsWithTag("cheez");
+        playerAteSuperCheez = false;
+        cheezArray = GameObject.FindGameObjectsWithTag("Cheez");
+        enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < cheezArray.Length; i++)
         {
             cheezArray[i].SetActive(true);
         }
+        for (int i = 0; i < enemyArray.Length; i++)
+        {
+            enemyArray[i].SetActive(false);
+            enemyArray[i].transform.position = spawnPoint.transform.position;
+        }
         gameObject.SetActive(true);
         score = 0;
         anim = GetComponent<Animator>();
+
+        //spaning enemy ai
+        StartCoroutine(SpawnEnemies());
     }
 
     // Update is called once per frame
