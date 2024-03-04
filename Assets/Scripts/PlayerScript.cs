@@ -25,10 +25,14 @@ public class PlayerScript : MonoBehaviour
     //score variable
     private int score;
     
-    //text variable
+    //score text
     public TMP_Text txt;
 
+    //highscore text
     public TMP_Text highScore;
+
+    //lives text
+    public TMP_Text lives;
 
     //leaderboard variable
     public LeaderboardManager leaderboard;
@@ -46,7 +50,19 @@ public class PlayerScript : MonoBehaviour
     private bool gameStarted;
 
     //boolean if player ate super cheez
-    public bool playerAteSuperCheez = false;
+    public bool playerAteSuperCheez;
+
+    //player lives variable
+    private int playerLives;
+
+    //number of cheez eaten
+    private int cheezEaten;
+
+    //player spawn point
+    public GameObject playerSpawn;
+
+    //array of super cheez
+    private GameObject[] superCheezArray;
 
     public bool GetCheezBool()
     {
@@ -70,29 +86,51 @@ public class PlayerScript : MonoBehaviour
         playerAteSuperCheez = false;
     }
 
+    //respawn player when dead
+    private IEnumerator RespawnPlayer()
+    {
+        gameObject.transform.position = playerSpawn.transform.position;
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(true);
+    }
+
     //collision function 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Cheez")
         {
             score+=10;
-            //test update score for later leaderboard injection
-            
+            cheezEaten++;
             collision.gameObject.SetActive(false);
         }
 
-        if(collision.gameObject.tag =="EvilMouse" && !playerAteSuperCheez)
+        if(collision.gameObject.tag =="EvilMouse" && !playerAteSuperCheez && playerLives <= 1)
         {
             gameObject.SetActive(false);
             leaderboard.AddScoreAndDisplayLeaderboard(score);
         }
+        else if(collision.gameObject.tag =="EvilMouse" && !playerAteSuperCheez && playerLives > 1)
+        {
+            isWalking = false;
+            isAnimating = false;
+            playerLives--;
+            StartCoroutine(RespawnPlayer());
+            for (int i = 0; i < enemyArray.Length; i++)
+            {
+                enemyArray[i].SetActive(false);
+                enemyArray[i].transform.position = spawnPoint.transform.position;
+            }
+            StartCoroutine(SpawnEnemies());
+        }
         else if(collision.gameObject.tag =="EvilMouse" && playerAteSuperCheez)
         {
+            score+=200;
             StartCoroutine(EnemyDied(collision.gameObject.transform.parent.gameObject));
         }
 
         if(collision.gameObject.tag =="SuperCheez")
         {
+            score+=100;
             collision.gameObject.SetActive(false);
             StartCoroutine(SuperMode());
         }
@@ -136,12 +174,20 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cheezEaten = 0;
+        playerLives = 3;
         playerAteSuperCheez = false;
+        gameObject.transform.position = playerSpawn.transform.position;
         cheezArray = GameObject.FindGameObjectsWithTag("Cheez");
+        superCheezArray= GameObject.FindGameObjectsWithTag("SuperCheez");
         enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < cheezArray.Length; i++)
         {
             cheezArray[i].SetActive(true);
+        }
+        for (int i = 0; i < superCheezArray.Length; i++)
+        {
+            superCheezArray[i].SetActive(true);
         }
         for (int i = 0; i < enemyArray.Length; i++)
         {
@@ -159,7 +205,28 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(cheezEaten);
         //restart game
+        if(cheezEaten >= 260)
+        {
+            StartCoroutine(RespawnPlayer());
+            for (int i = 0; i < enemyArray.Length; i++)
+            {
+                enemyArray[i].SetActive(false);
+                enemyArray[i].transform.position = spawnPoint.transform.position;
+            }
+            StartCoroutine(SpawnEnemies());
+            for (int i = 0; i < cheezArray.Length; i++)
+            {
+                cheezArray[i].SetActive(true);
+            }
+            for (int i = 0; i < superCheezArray.Length; i++)
+            {
+                superCheezArray[i].SetActive(true);
+            }
+            cheezEaten = 0;
+        }
+
         if(Input.GetKeyDown(KeyCode.R))
         {
             leaderboard.RestartGame();
@@ -168,7 +235,11 @@ public class PlayerScript : MonoBehaviour
         //display the score
         txt.text = "Score: \n" + score;
 
+        //display high score
         highScore.text = "High Score: " + leaderboard.HighScore();
+
+        //display number of lives left
+        lives.text = "Lives: " + playerLives;
 
         //handle movement
         if(Input.GetKeyDown(KeyCode.W))

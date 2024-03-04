@@ -19,7 +19,6 @@ public class EvilMouseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(player.GetCheezBool().ToString());
         if(player.GetCheezBool() == true)
         {
             anim.Play("scared_mouse_walking");
